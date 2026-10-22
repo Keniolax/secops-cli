@@ -21,3 +21,6 @@ __pycache__/
 .DS_Store
 .idea/
 .vscode/
+
+# Local demo files: copies of lab logs and the lab CA
+demo/
