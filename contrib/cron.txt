@@ -1,0 +1,3 @@
+# Any Unix: add with `crontab -e`. Every 15 minutes; findings append to a log.
+# cron ignores the exit code unless you act on it, so `|| ...` marks findings.
+*/15 * * * * /ABSOLUTE/PATH/TO/.venv/bin/secops fim check --json --baseline /ABSOLUTE/PATH/TO/watched.baseline.json >> /ABSOLUTE/PATH/TO/fim-check.jsonl 2>&1 || echo "$(date -u +\%FT\%TZ) secops fim: exit $?" >> /ABSOLUTE/PATH/TO/fim-alerts.log

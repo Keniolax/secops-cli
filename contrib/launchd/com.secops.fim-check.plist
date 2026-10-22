@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  macOS: run `secops fim check` every 15 minutes, as your own user.
+
+  Replace the three paths below, then:
+    cp com.secops.fim-check.plist ~/Library/LaunchAgents/
+    launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.secops.fim-check.plist
+  Stop it with:
+    launchctl bootout gui/$(id -u)/com.secops.fim-check
+
+  StartInterval skips any run that falls while the Mac sleeps (see
+  `man launchd.plist`), so the first check after waking can come up to
+  15 minutes late. `secops fim watch` also checks everything when it starts.
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.secops.fim-check</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/ABSOLUTE/PATH/TO/.venv/bin/secops</string>
+    <string>fim</string>
+    <string>check</string>
+    <string>--json</string>
+    <string>--baseline</string>
+    <string>/ABSOLUTE/PATH/TO/watched.baseline.json</string>
+  </array>
+  <key>StartInterval</key>
+  <integer>900</integer>
+  <key>StandardOutPath</key>
+  <string>/ABSOLUTE/PATH/TO/fim-check.jsonl</string>
+  <key>StandardErrorPath</key>
+  <string>/ABSOLUTE/PATH/TO/fim-check.err</string>
+</dict>
+</plist>

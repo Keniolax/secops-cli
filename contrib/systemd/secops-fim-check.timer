@@ -1,0 +1,14 @@
+# Linux: run secops-fim-check.service every 15 minutes.
+#   sudo cp secops-fim-check.* /etc/systemd/system/
+#   sudo systemctl daemon-reload && sudo systemctl enable --now secops-fim-check.timer
+[Unit]
+Description=Run the secops file integrity check every 15 minutes
+
+[Timer]
+OnCalendar=*:0/15
+# If the machine was off at a planned time, run once as soon as it is back.
+# Persistent= works only with OnCalendar=, which is why the timer uses it.
+Persistent=true
+
+[Install]
+WantedBy=timers.target

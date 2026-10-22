@@ -1,0 +1,15 @@
+# Linux: one full integrity check. secops-fim-check.timer starts it.
+# Exit code 1 means files changed; systemd records it, so
+# `systemctl status secops-fim-check` and `journalctl -u secops-fim-check`
+# show every finding.
+[Unit]
+Description=secops file integrity check
+
+[Service]
+Type=oneshot
+ExecStart=/opt/secops/.venv/bin/secops fim check --json --baseline /var/lib/secops/etc.baseline.json --key-file /etc/secops/fim.key
+# The check only reads. Give it nothing else.
+ProtectSystem=strict
+ProtectHome=read-only
+PrivateTmp=true
+NoNewPrivileges=true
