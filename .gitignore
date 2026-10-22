@@ -1,0 +1,23 @@
+# Virtual environments and build output
+.venv/
+venv/
+build/
+dist/
+*.egg-info/
+
+# Python caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+
+# FIM state: baselines and the HMAC key never belong in git
+*.baseline.json
+.secops/
+.env
+
+# Editor and OS noise
+.DS_Store
+.idea/
+.vscode/
